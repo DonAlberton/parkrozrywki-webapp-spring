@@ -4,17 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
+@Transactional
 public class KlientDAO {
     /* Import org.springframework.jd....Template */
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public KlientDAO(JdbcTemplate jdbcTemplate) {
-        super();
+        //super();
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -22,8 +24,7 @@ public class KlientDAO {
     public List<Klient> list(){
         String sql = "SELECT * FROM klienci";
 
-        List<Klient> listaKlientow = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Klient.class));
-        return listaKlientow;
+        return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Klient.class));
     }
     /* Insert – wstawianie nowego wiersza do bazy */
     public void save(Klient sale) {

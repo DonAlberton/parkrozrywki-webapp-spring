@@ -20,8 +20,53 @@
 
 
 <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/main}">Main</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/main}">Login</a></a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
 <!--Using images in page    -->
 <!-- <img th:src="@{/assets/img/img.png}" alt="Image" class="img-fluid"> -->
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 mt-5">
+
+      <label style="font-size:30px">Welcome to the home page!</label>
+      <div style="font-size:20px">If you want to login, click <a th:href="@{/main}"><b>here</b></a> or in the
+        upper right corner.
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!--<div align="center">
     <h1>Sales Records</h1>
@@ -56,34 +101,29 @@
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<body>
 
 <div align="center">
-  <h1>Lista Klientow</h1>
-  <!-- Table -->
-  <table border="1" cellpadding="10">
-    <!-- Table header -->
-    <thead>
-    <tr> <!-- Table row -->
-      <th>ID</th>
-      <th>Imie</th>
-      <th>Nazwisko</th>
-      <th>Nr Telefonu</th>
-      <th>Email</th>
-      <th>Id adresu</th>
-    </tr>
-    </thead>
-    <!-- Table body -->
-    <tbody>
-    <tr th:each="klient : ${listaKlientow}">
-      <td th:text="${klient.id_klienta}">ID</td>
-      <td th:text="${klient.imie}">Imie</td>
-      <td th:text="${klient.nazwisko}">Nazwisko</td>
-      <td th:text="${klient.numer_telefonu}">Numer Tel</td>
-      <td th:text="${klient.email}">Email</td>
-      <td th:text="${klient.id_adresu}">Id adresu</td>
-    </tr>
-    </tbody>
-  </table>
+<!-- Table -->
+<table border = "1" cellpadding = "10"> <!-– border –
+  obramowanie, cellpadding – rozmiar komórki -->
+  <!-- Table header -->
+  <thead>
+  <tr> <!-- Table row -->
+    <th>ID</th> <!–- Table column -->
+    <th>Imie</th>
+    <th>Nazwisko</th>
+  </tr>
+  </thead>
+  <!-- Table body -->
+  <tbody>
+  <tr th:each = "klient : ${listaKlientow}">
+    <td th:text = "${klient.id_klienta}">ID</td>
+    <td th:text = "${klient.imie}">Imie</td>
+    <td th:text = "${klient.nazwisko}">Nazwisko</td>
+  </tr>
+  </tbody>
+</table>
 </div>
 
 </body>

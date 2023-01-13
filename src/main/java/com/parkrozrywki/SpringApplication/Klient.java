@@ -1,14 +1,14 @@
 package com.parkrozrywki.SpringApplication;
 
 public class Klient {
-    private int id_klienta;
+    private Integer id_klienta;
     private String imie;
     private String nazwisko;
     private String numer_telefonu;
     private String email;
-    private int id_adresu;
+    private Integer id_adresu;
 
-    public Klient(int id_klienta, String imie, String nazwisko, String numer_telefonu, String email, int id_adresu) {
+    public Klient(Integer id_klienta, String imie, String nazwisko, String numer_telefonu, String email, Integer id_adresu) {
         this.id_klienta = id_klienta;
         this.imie = imie;
         this.nazwisko = nazwisko;
@@ -18,11 +18,11 @@ public class Klient {
     }
     public Klient(){}
 
-    public int getId_klienta() {
+    public Integer getId_klienta() {
         return id_klienta;
     }
 
-    public void setId_klienta(int id_klienta) {
+    public void setId_klienta(Integer id_klienta) {
         this.id_klienta = id_klienta;
     }
 
@@ -58,11 +58,11 @@ public class Klient {
         this.email = email;
     }
 
-    public int getId_adresu() {
+    public Integer getId_adresu() {
         return id_adresu;
     }
 
-    public void setId_adresu(int id_adresu) {
+    public void setId_adresu(Integer id_adresu) {
         this.id_adresu = id_adresu;
     }
 

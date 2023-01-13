@@ -47,7 +47,7 @@
 			<artifactId>ojdbc11</artifactId>
 			<scope>system</scope>
 			<version>1.0</version>
-			<systemPath>C:/Users/alber/Documents/studia/Semestr 3/BDBT/Projekt 2/ojdbc11.jar</systemPath>
+			<systemPath>C:/Users/alber/Documents/studia/Semestr 3/BDBT/Projekt 2/ojdbc10.jar</systemPath>
 		</dependency>
 
 		<dependency>

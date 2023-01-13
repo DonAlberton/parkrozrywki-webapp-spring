@@ -2,6 +2,7 @@ package com.parkrozrywki.SpringApplication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
@@ -10,9 +11,12 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Configuration
+@Controller
 public class AppController implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/index").setViewName("index");
@@ -53,14 +57,16 @@ public class AppController implements WebMvcConfigurer {
 
     @Autowired
     private KlientDAO dao;
+    //private static final Logger LOGGER = Logger.getLogger(AppController.class.getName());
 
-    @RequestMapping(value={"/klienci"})
+    @RequestMapping("/klienci")
     public String showKlienciPage(Model model){
         List<Klient> listaKlientow = dao.list();
         model.addAttribute("listaKlientow", listaKlientow);
 
         return "klienci";
     }
+
     @RequestMapping(value={"/main_admin"})
     public String showAdminPage(Model model) {
         return "admin/main_admin";
