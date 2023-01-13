@@ -59,7 +59,7 @@
   <div class="row">
     <div class="col-md-10 mt-5">
 
-      <label style="font-size:30px">Welcome to the home page!</label>
+      <label style="font-size:30px">Welcome to Klienci!</label>
       <div style="font-size:20px">If you want to login, click <a th:href="@{/main}"><b>here</b></a> or in the
         upper right corner.
       </div>
@@ -67,36 +67,6 @@
     </div>
   </div>
 </div>
-
-<!--<div align="center">
-    <h1>Sales Records</h1>
-
-    <table border="1" cellpadding="10">
-
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Item Name</th>
-            <th>Quantity</th>
-            <th>Amount</th>
-            <th>Action</th>
-
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="sale : ${listSale}">
-            <td th:text="${sale.id}">ID</td>
-            <td th:text="${sale.item}">Item Name</td>
-            <td th:text="${sale.quantity}">Quantity</td>
-            <td th:text="${sale.amount}">Amount</td>
-        </tr>
-        </tbody>
-
-    </table>
-
-</div>-->
-
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
