@@ -51,6 +51,8 @@ class KlientDAOTest {
 
     @Test
     void save() {
+        Klient klient = new Klient(12, "Don", "Alberton", "4326417", "Donalberto@gmail.com", 1);
+        dao.save(klient);
     }
 
     @Test
@@ -59,6 +61,8 @@ class KlientDAOTest {
 
     @Test
     void update() {
+        Klient klient = new Klient();
+        //klient.setId_klienta();
     }
 
     @Test
