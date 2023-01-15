@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Klient</title>
+</head>
+<body>
+
+<div align="center">
+    <!-- Table -->
+    <h1>Dodaj klienta</h1>
+
+    <!-- UWAGA th:object-->
+    <form action="#" th:action="@{/update}" th:object="${klient}" method="post">
+        <table border="1" cellpadding="10">
+            <tr>
+                <td>ID</td>
+                <td><input type="text" th:field="*{id_klienta}" readonly="readonly"></td>
+            </tr>
+            <tr>
+                <td>Imie</td>
+                <td><input type="text" th:field="*{imie}" readonly="readonly"></td>
+            </tr>
+            <tr>
+                <td>Nazwisko</td>
+                <td><input type="text" th:field="*{nazwisko}" readonly="readonly"></td>
+            </tr>
+            <tr>
+                <td>Nr Telefonu</td>
+                <td><input type="text" th:field="*{numer_telefonu}" readonly="readonly"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="text" th:field="*{email}" readonly="readonly"></td>
+            </tr>
+            <tr>
+                <td>Id adresu</td>
+                <td><input type="text" th:field="*{id_adresu}" readonly="readonly"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>
