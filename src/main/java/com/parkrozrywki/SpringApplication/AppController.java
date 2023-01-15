@@ -32,9 +32,10 @@ public class AppController implements WebMvcConfigurer {
 
         registry.addViewController("/klienci").setViewName("klienci");
         registry.addViewController("/new-klient").setViewName("new-klient");
-        registry.addViewController("/edit/{id_klienta}").setViewName("edit-form");
-        //"/edit/{id}"
-        //registry.addViewController("/save").setViewName("save");
+        registry.addViewController("/edit/{id}").setViewName("edit-form");
+        registry.addViewController("/save").setViewName("save");
+
+        registry.addViewController("/wybor-atrakcji").setViewName("user/wybor-atrakcji");
 
     }
 
@@ -63,10 +64,20 @@ public class AppController implements WebMvcConfigurer {
         }
     }
 
+    @Autowired
+    private AtrakcjeDAO atrakcjeDao;
+
+    @RequestMapping("/wybor-atrakcji")
+    public String showAtrakcje(Model model){
+        List<Atrakcje> listaAtrakcji = atrakcjeDao.list();
+        model.addAttribute("listaAtrakcji", listaAtrakcji);
+
+        return "user/wybor-atrakcji";
+    }
+
 
     @Autowired
     private KlientDAO dao;
-    //private static final Logger LOGGER = Logger.getLogger(AppController.class.getName());
 
     @RequestMapping("/klienci")
     public String showKlienciPage(Model model){
@@ -87,13 +98,19 @@ public class AppController implements WebMvcConfigurer {
         dao.save(klient);
         return "redirect:/";
     }
-    @RequestMapping("/edit/{id_klienta}")
-    public ModelAndView showEditForm(@PathVariable(name="id_klienta") int id){
+    @RequestMapping("/edit/{id}")
+    public ModelAndView showEditForm(@PathVariable(name="id") int id){
         ModelAndView mav = new ModelAndView("edit-form");
         Klient klient = dao.get(id);
         mav.addObject("klient", klient);
 
         return mav;
+    }
+    @RequestMapping("/delete/{id}")
+    public String deleteKlient(@PathVariable(name = "id") int id){
+        dao.delete(id);
+
+        return "redirect:/";
     }
 
     @RequestMapping(value="/update", method=RequestMethod.POST)

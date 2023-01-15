@@ -57,10 +57,14 @@ class KlientDAOTest {
 
     @Test
     void get() {
+        int id = 7;
+        Klient klient = dao.get(id);
+        assertNotNull(klient);
     }
 
     @Test
     void update() {
+        Integer id = 7;
         Klient klient = new Klient();
         //klient.setId_klienta();
     }
