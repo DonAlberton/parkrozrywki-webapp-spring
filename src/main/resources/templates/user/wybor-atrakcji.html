@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Atrakcje</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+
+<body>
+
+<div align="center">
+    <h1>Lista Atrakcji</h1>
+    <table border="1" cellpadding="10">
+        <!-- Table header -->
+        <thead>
+        <tr> <!-- Table row -->
+            <th>Nazwa atrakcji</th>
+            <th>Cena</th>
+            <th>Minimalny wzrost</th>
+        </tr>
+        </thead>
+
+        <!-- Table body -->
+        <tbody>
+        <tr th:each="atrakcja : ${listaAtrakcji}">
+            <td th:text="${atrakcja.nazwa_atrakcji}">Atrakcja</td>
+            <td th:text="${atrakcja.cena_atrakcji}">Cena</td>
+            <td th:text="${atrakcja.minimalny_wzrost}">Minimalny wzrost</td>
+            <td>
+                <a th:href="@{'/do-koszyka/' + ${atrakcja.id_atrakcji}}">Dodaj do koszyka</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

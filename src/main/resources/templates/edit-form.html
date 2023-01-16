@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Klient</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 </head>
 <body>
 
@@ -10,7 +11,7 @@
     <!-- Table -->
     <h1>Dodaj klienta</h1>
 
-    <!-- UWAGA th:object-->
+
     <form action="#" th:action="@{/update}" th:object="${klient}" method="post">
         <table border="1" cellpadding="10">
             <tr>
@@ -19,23 +20,23 @@
             </tr>
             <tr>
                 <td>Imie</td>
-                <td><input type="text" th:field="*{imie}" readonly="readonly"></td>
+                <td><input type="text" th:field="*{imie}"></td>
             </tr>
             <tr>
                 <td>Nazwisko</td>
-                <td><input type="text" th:field="*{nazwisko}" readonly="readonly"></td>
+                <td><input type="text" th:field="*{nazwisko}"></td>
             </tr>
             <tr>
                 <td>Nr Telefonu</td>
-                <td><input type="text" th:field="*{numer_telefonu}" readonly="readonly"></td>
+                <td><input type="text" th:field="*{numer_telefonu}"></td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td><input type="text" th:field="*{email}" readonly="readonly"></td>
+                <td><input type="text" th:field="*{email}"></td>
             </tr>
             <tr>
                 <td>Id adresu</td>
-                <td><input type="text" th:field="*{id_adresu}" readonly="readonly"></td>
+                <td><input type="text" th:field="*{id_adresu}"></td>
             </tr>
 
             <tr>
@@ -45,7 +46,9 @@
             </tr>
         </table>
     </form>
+
 </div>
+
 
 </body>
 </html>

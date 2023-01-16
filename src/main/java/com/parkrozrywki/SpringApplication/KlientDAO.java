@@ -39,7 +39,7 @@ public class KlientDAO {
 
     /* Read – odczytywanie danych z bazy */
     public Klient get(int id) {
-        String sql = "SELECT * FROM klienci WHERE id = ?";
+        String sql = "SELECT * FROM klienci WHERE id_klienta = ?";
         Object[] args = {id};
         Klient klient = jdbcTemplate.queryForObject(sql, args, BeanPropertyRowMapper.newInstance(Klient.class));
         return klient;
@@ -47,7 +47,7 @@ public class KlientDAO {
 
     public Klient get1(int id){
         Object[] args = {id};
-        String sql = "SELECT * FROM klienci WHERE id = " + args[0];
+        String sql = "SELECT * FROM klienci WHERE id_klienta = " + args[0];
         Klient klient = jdbcTemplate.queryForObject(sql, args, BeanPropertyRowMapper.newInstance(Klient.class));
         return klient;
     }
@@ -61,6 +61,8 @@ public class KlientDAO {
     }
     /* Delete – wybrany rekord z danym id */
     public void delete(int id) {
+        String sql = "DELETE FROM klienci WHERE id_klienta = ?";
+        jdbcTemplate.update(sql, id);
     }
 
 }

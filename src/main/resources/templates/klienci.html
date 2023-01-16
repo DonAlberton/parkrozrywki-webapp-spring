@@ -82,7 +82,11 @@
             <td th:text="${klient.id_klienta}">ID</td>
             <td th:text="${klient.imie}">Imie</td>
             <td th:text="${klient.nazwisko}">Nazwisko</td>
-            <td><a href="@{'/edit/' + ${klient.id_klienta}}">Edit</a> </td>
+            <td>
+                <a th:href="@{'/edit/' + ${klient.id_klienta}}">Edit</a>
+                <a th:href="@{'/delete/' + ${klient.id_klienta}}">Delete</a>
+            </td>
+
         </tr>
         </tbody>
     </table>
