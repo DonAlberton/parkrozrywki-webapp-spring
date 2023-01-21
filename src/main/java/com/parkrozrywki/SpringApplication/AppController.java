@@ -6,16 +6,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -37,6 +38,9 @@ public class AppController implements WebMvcConfigurer {
 
         registry.addViewController("/wybor-atrakcji").setViewName("user/wybor-atrakcji");
 
+        registry.addViewController("/atrakcje").setViewName("admin/atrakcje");
+        registry.addViewController("/nowa-atrakcja").setViewName("admin/nowa-atrakcja");
+        registry.addViewController("/edytuj-atrakcje/{id}").setViewName("admin/edytuj-atrakcje");
     }
 
     @Controller
@@ -75,6 +79,66 @@ public class AppController implements WebMvcConfigurer {
         return "user/wybor-atrakcji";
     }
 
+    @RequestMapping("/nowa-atrakcja")
+    public String showNowaAtrakcja(Model model){
+        List<String> stanAtrakcji = Arrays.asList("Dzialajacy", "Niedzialajacy", "W trakcie budowy");
+        model.addAttribute("stanAtrakcji", stanAtrakcji);
+
+        Atrakcje atrakcja = new Atrakcje();
+
+        int numerAtrakcji = atrakcjeDao.list().size() + 1;
+        atrakcja.setId_atrakcji(numerAtrakcji);
+        atrakcja.setWodna("0");
+        atrakcja.setId_parku(1);
+
+        model.addAttribute("atrakcja", atrakcja);
+
+        return "admin/nowa-atrakcja";
+    }
+
+    @RequestMapping(value="/zapisz-atrakcje", method = RequestMethod.POST)
+    public String zapiszAtrakcje(@ModelAttribute("atrakcja") Atrakcje atrakcja, @RequestParam("data_otwarcia") String data_otwarcia) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date data = formatter.parse(data_otwarcia);
+        atrakcja.setData_otwarcia(data);
+        atrakcjeDao.save(atrakcja);
+
+        return "redirect:/atrakcje";
+    }
+
+    @RequestMapping("/usun-atrakcje/{id}")
+    public String usunKlienta(@PathVariable(name = "id") int id){
+        atrakcjeDao.delete(id);
+
+        return "redirect:/atrakcje";
+    }
+
+    @RequestMapping("/edytuj-atrakcje/{id}")
+    public ModelAndView edytujAtrakcje(@PathVariable(name = "id") int id){
+        List<String> stanAtrakcji = Arrays.asList("Dzialajacy", "Niedzialajacy", "W trakcie budowy");
+
+        ModelAndView mav = new ModelAndView("admin/edytuj-atrakcje");
+        Atrakcje atrakcje = atrakcjeDao.get(id);
+        mav.addObject("atrakcje", atrakcje);
+        mav.addObject("stanAtrakcji", stanAtrakcji);
+
+        return mav;
+    }
+
+    @RequestMapping("/atrakcje")
+    public String showAtrakcjeAdmin(Model model){
+        List<Atrakcje> listaAtrakcji = atrakcjeDao.list();
+        model.addAttribute("listaAtrakcji", listaAtrakcji);
+
+        return "admin/atrakcje";
+    }
+
+    @RequestMapping(value="/aktualizuj-atrakcje", method=RequestMethod.POST)
+    public String aktualizacjajAtrakcji(@ModelAttribute("atrakcja") Atrakcje atrakcja){
+        atrakcjeDao.update(atrakcja);
+        return "redirect:/atrakcje";
+    }
+
 
     @Autowired
     private KlientDAO dao;
@@ -86,6 +150,8 @@ public class AppController implements WebMvcConfigurer {
 
         return "klienci";
     }
+
+
     @RequestMapping("/new-klient")
     public String showNewForm(Model model){
         Klient klient = new Klient();

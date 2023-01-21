@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,6 +33,7 @@ class AtrakcjeDAOTest {
     @Test
     void list() {
         List<Atrakcje> listaAtrakcji = dao.list();
+        System.out.println(listaAtrakcji.size());
 
         for (Atrakcje atrakcja: listaAtrakcji){
             System.out.println(atrakcja);
@@ -37,6 +42,11 @@ class AtrakcjeDAOTest {
 
     @Test
     void save() {
+        //LocalDate date = new LocalDate();
+        Date date = new Date();
+        //Atrakcje atrakcja = new Atrakcje(8, "Teges Szmeges", 20, "Dzialajacy", 100, date, 200, 90, "0", 1);
+
+        //dao.save(atrakcja);
     }
 
     @Test
@@ -45,6 +55,12 @@ class AtrakcjeDAOTest {
 
     @Test
     void update() {
+        Atrakcje atrakcja = new Atrakcje();
+        atrakcja.setId_atrakcji(7);
+        atrakcja.setStan_atrakcji("Nie dzialajacy");
+        atrakcja.setCena_atrakcji(75);
+
+        dao.update(atrakcja);
     }
 
     @Test
