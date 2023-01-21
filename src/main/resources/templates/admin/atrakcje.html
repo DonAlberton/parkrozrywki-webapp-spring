@@ -21,6 +21,8 @@
     <tr> <!-- Table row -->
       <th>ID</th>
       <th>Nazwa atrakcji</th>
+      <th>Cena</th>
+      <th>Stan</th>
     </tr>
     </thead>
 
@@ -29,6 +31,8 @@
     <tr th:each="atrakcja : ${listaAtrakcji}">
       <td th:text="${atrakcja.id_atrakcji}">Id</td>
       <td th:text="${atrakcja.nazwa_atrakcji}">Atrakcja</td>
+      <td th:text="${atrakcja.cena_atrakcji}">Cena</td>
+      <td th:text="${atrakcja.stan_atrakcji}">Stan</td>
 
       <td>
         <a th:href="@{'/edytuj-atrakcje/' + ${atrakcja.id_atrakcji}}">Edit</a>

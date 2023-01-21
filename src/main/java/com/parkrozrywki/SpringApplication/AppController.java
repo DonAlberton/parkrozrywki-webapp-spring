@@ -81,7 +81,7 @@ public class AppController implements WebMvcConfigurer {
 
     @RequestMapping("/nowa-atrakcja")
     public String showNowaAtrakcja(Model model){
-        List<String> stanAtrakcji = Arrays.asList("Dzialajacy", "Niedzialajacy", "W trakcie bydowy");
+        List<String> stanAtrakcji = Arrays.asList("Dzialajacy", "Niedzialajacy", "W trakcie budowy");
         model.addAttribute("stanAtrakcji", stanAtrakcji);
 
         Atrakcje atrakcja = new Atrakcje();
@@ -103,19 +103,19 @@ public class AppController implements WebMvcConfigurer {
         atrakcja.setData_otwarcia(data);
         atrakcjeDao.save(atrakcja);
 
-        return "redirect:/";
+        return "redirect:/atrakcje";
     }
 
     @RequestMapping("/usun-atrakcje/{id}")
     public String usunKlienta(@PathVariable(name = "id") int id){
         atrakcjeDao.delete(id);
 
-        return "redirect:/";
+        return "redirect:/atrakcje";
     }
 
     @RequestMapping("/edytuj-atrakcje/{id}")
     public ModelAndView edytujAtrakcje(@PathVariable(name = "id") int id){
-        List<String> stanAtrakcji = Arrays.asList("Dzialajacy", "Niedzialajacy", "W trakcie bydowy");
+        List<String> stanAtrakcji = Arrays.asList("Dzialajacy", "Niedzialajacy", "W trakcie budowy");
 
         ModelAndView mav = new ModelAndView("admin/edytuj-atrakcje");
         Atrakcje atrakcje = atrakcjeDao.get(id);
@@ -136,7 +136,7 @@ public class AppController implements WebMvcConfigurer {
     @RequestMapping(value="/aktualizuj-atrakcje", method=RequestMethod.POST)
     public String aktualizacjajAtrakcji(@ModelAttribute("atrakcja") Atrakcje atrakcja){
         atrakcjeDao.update(atrakcja);
-        return "redirect:/";
+        return "redirect:/atrakcje";
     }
 
 
