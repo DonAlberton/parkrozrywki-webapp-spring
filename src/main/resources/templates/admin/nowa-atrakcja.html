@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj atrakcje</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<body>
+
+<div align="center">
+    <h1>Dodaj atrakcje</h1>
+    <!-- TODO dodaj zapisz-atrakcje do kontrolera-->
+    <form action="#" th:action="@{/zapisz-atrakcje}" th:object="${atrakcja}" method="post">
+        <table border="1" cellpadding="10">
+            <tr>
+                <td>ID</td>
+                <td><input type="text" th:field="*{id_atrakcji}" readonly="readonly"/></td>
+            </tr>
+            <tr>
+                <td>Nazwa</td>
+                <td><input type="text" th:field="*{nazwa_atrakcji}"></td>
+            </tr>
+            <tr>
+                <td>Cena</td>
+                <td><input type="text" th:field="*{cena_atrakcji}"></td>
+            </tr>
+            <tr>
+                <td>Stan</td>
+                <td>
+                    <select th:field="*{stan_atrakcji}">
+                        <option th:each="s : ${stanAtrakcji}" th:value="${s}" th:text="${s}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Minimalny wzrost</td>
+                <td><input type="text" th:field="*{minimalny_wzrost}"></td>
+            </tr>
+            <tr>
+                <td>Wysokosc</td>
+                <td><input type="text" th:field="*{wysokosc}"></td>
+            </tr>
+            <tr>
+                <td>Czas trwania</td>
+                <td><input type="text" th:field="*{czas_trwania}"></td>
+            </tr>
+            <tr>
+                <td>Data otwarcia</td>
+                <td><input type="date" th:field="*{data_otwarcia}"></td>
+            </tr>
+            <tr>
+                <td>Wodna</td>
+                <td><input type="text" th:field="*{wodna}"></td>
+            </tr>
+            <tr>
+                <td>ID parku</td>
+                <td><input type="text" th:field="*{id_parku}"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>

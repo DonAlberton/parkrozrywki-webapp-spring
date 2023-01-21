@@ -1,6 +1,9 @@
 package com.parkrozrywki.SpringApplication;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
+
 
 public class Atrakcje {
     private Integer id_atrakcji;
@@ -8,11 +11,16 @@ public class Atrakcje {
     private Integer cena_atrakcji;
     private String stan_atrakcji;
     private Integer minimalny_wzrost;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date data_otwarcia;
     private Integer wysokosc;
     private Integer czas_trwania;
 
-    public Atrakcje(Integer id_atrakcji, String nazwa_atrakcji, Integer cena_atrakcji, String stan_atrakcji, Integer minimalny_wzrost, Date data_otwarcia, Integer wysokosc, Integer czas_trwania) {
+    private String wodna;
+
+    private Integer id_parku;
+    public Atrakcje(Integer id_atrakcji, String nazwa_atrakcji, Integer cena_atrakcji, String stan_atrakcji, Integer minimalny_wzrost, Date data_otwarcia, Integer wysokosc, Integer czas_trwania, String wodna, Integer id_parku) {
         this.id_atrakcji = id_atrakcji;
         this.nazwa_atrakcji = nazwa_atrakcji;
         this.cena_atrakcji = cena_atrakcji;
@@ -21,6 +29,8 @@ public class Atrakcje {
         this.data_otwarcia = data_otwarcia;
         this.wysokosc = wysokosc;
         this.czas_trwania = czas_trwania;
+        this.wodna = wodna;
+        this.id_parku = id_parku;
     }
 
     public Atrakcje(){}
@@ -89,6 +99,22 @@ public class Atrakcje {
         this.czas_trwania = czas_trwania;
     }
 
+    public String getWodna() {
+        return wodna;
+    }
+
+    public void setWodna(String wodna) {
+        this.wodna = wodna;
+    }
+
+    public Integer getId_parku() {
+        return id_parku;
+    }
+
+    public void setId_parku(Integer id_parku) {
+        this.id_parku = id_parku;
+    }
+
     @Override
     public String toString() {
         return "Atrakcje{" +
@@ -100,6 +126,8 @@ public class Atrakcje {
                 ", data_otwarcia=" + data_otwarcia +
                 ", wysokosc=" + wysokosc +
                 ", czas_trwania=" + czas_trwania +
+                ", wodna='" + wodna + '\'' +
+                ", id_parku=" + id_parku +
                 '}';
     }
 }
