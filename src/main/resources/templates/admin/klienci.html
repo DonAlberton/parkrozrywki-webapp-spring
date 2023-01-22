@@ -67,7 +67,7 @@
             <td th:text="${klient.imie}">Imie</td>
             <td th:text="${klient.nazwisko}">Nazwisko</td>
             <td>
-                <a th:href="@{'/edit/' + ${klient.id_klienta}}">Edit</a>
+                <a th:href="@{'/edit-klient/' + ${klient.id_klienta}}">Edit</a>
                 <a th:href="@{'/delete/' + ${klient.id_klienta}}">Delete</a>
             </td>
 

@@ -24,7 +24,7 @@ public class TransakcjeDAO {
 
     /* Import java.util.List */
     public List<Transakcje> list(String imie){
-        String sql = "select transakcje.id_klienta, transakcje.id_atrakcji, transakcje.data,atrakcje.nazwa_atrakcji from transakcje inner join atrakcje on transakcje.id_atrakcji = atrakcje.id_atrakcji where transakcje.id_klienta = 4";
+        String sql = "select transakcje.id_klienta, transakcje.id_atrakcji, transakcje.data,atrakcje.nazwa_atrakcji from transakcje inner join atrakcje on transakcje.id_atrakcji = atrakcje.id_atrakcji where transakcje.id_klienta = 15";
 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Transakcje.class));
     }

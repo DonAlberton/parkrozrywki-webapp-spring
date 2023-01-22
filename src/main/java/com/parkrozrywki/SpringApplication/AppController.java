@@ -33,7 +33,7 @@ public class AppController implements WebMvcConfigurer {
 
         registry.addViewController("/klienci").setViewName("admin/klienci");
         registry.addViewController("/new-klient").setViewName("new-klient");
-        registry.addViewController("/edit/{id}").setViewName("edit-form");
+        registry.addViewController("/edit/{id}").setViewName("user/edit-form");
         registry.addViewController("/save").setViewName("save");
 
         registry.addViewController("/wybor-atrakcji").setViewName("user/wybor-atrakcji");
@@ -42,6 +42,7 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/atrakcje").setViewName("admin/atrakcje");
         registry.addViewController("/nowa-atrakcja").setViewName("admin/nowa-atrakcja");
         registry.addViewController("/edytuj-atrakcje/{id}").setViewName("admin/edytuj-atrakcje");
+        registry.addViewController("/edit-klient/{id}").setViewName("admin/edit-form");
     }
 
     @Controller
@@ -163,8 +164,17 @@ public class AppController implements WebMvcConfigurer {
 
         return "user/profile";
     }
-    @RequestMapping("/edit/{id}")
+    @RequestMapping("/edit-klient/{id}")
     public ModelAndView showEditForm(@PathVariable(name="id") int id){
+        ModelAndView mav = new ModelAndView("admin/edit-form");
+        Klient klient = dao.get(id);
+        mav.addObject("klient", klient);
+
+        return mav;
+    }
+
+    @RequestMapping("/edit/{id}")
+    public ModelAndView editUser(@PathVariable(name="id") int id){
         ModelAndView mav = new ModelAndView("user/edit-form");
         Klient klient = dao.get(id);
         mav.addObject("klient", klient);
@@ -176,6 +186,11 @@ public class AppController implements WebMvcConfigurer {
     public String update(@ModelAttribute("klient") Klient klient){
         dao.update(klient);
         return "redirect:/profile";
+    }
+    @RequestMapping(value="/update-klient", method=RequestMethod.POST)
+    public String updateKlient(@ModelAttribute("klient") Klient klient){
+        dao.update(klient);
+        return "redirect:/klienci";
     }
 
     @RequestMapping("/klienci")
