@@ -45,6 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/main_user").access("hasRole('USER')")
                 .antMatchers("/wybor-atrakcji").access("hasRole('USER')")
                 .antMatchers("/profile").access("hasRole('USER')")
+
+                .antMatchers("/edit-form").access("hasRole('USER')")
+
                 .antMatchers("/atrakcje").access("hasRole('ADMIN')")
                 .antMatchers("/nowa-atrakcja").access("hasRole('ADMIN')")
                 .antMatchers("/zapisz-atrakcje").access("hasRole('ADMIN')")
