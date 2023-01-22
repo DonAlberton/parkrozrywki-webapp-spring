@@ -2,17 +2,61 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Login Page</title>
+    <title>Logowanie</title>
 
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
-
 </head>
-<body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<style>
+    html, body{
+        padding: 0;
+        margin: 0;
+    }
+    html{
+        height: 100%;
+    }
+    body {
+        background: url(https://i.imgur.com/JpVa7aI.jpg) no-repeat center fixed;
+        background-size: cover;
+        backdrop-filter: blur(9px);
+        min-height: 100%;
+    }
+    nav {
+        background-color:rgb(252, 75, 66, .8);
+        height: 70px;
+    }
+    #loginbutton {
+        background-color: rgb(15, 150, 4);
+        border-color: rgb(8, 125, 1);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #loginbutton:hover {
+        background-color: rgb(127, 232, 118);
+        border-color: rgb(8, 125, 1);
+        color: rgb(15, 150, 4);
+        font-family: Bahnschrift,serif;
+    }
+    #passwordlabel {
+        font-size:12px;
+        color: rgb(255, 255, 255);
+        text-shadow: 2px 2px 3px rgba(12, 12, 12, 1);
+    }
+    #loginlabel {
+        font-size:12px;
+        color: rgb(255, 255, 255);
+        text-shadow: 2px 2px 3px rgba(12, 12, 12, 1);
+    }
+</style>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark static-top" >
     <div class="container">
-        <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+        <a class="nav-link" th:href="@{/index}" style="object-fit: cover;">
+            <img src="https://i.imgur.com/2vHh23v.png" style="height: 75px; width: 75px;">
+            <img src="https://i.imgur.com/zzhqe5b.png" style="height: 50px; width: 200px;">
+            <span class="sr-only">(current)</span>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -20,53 +64,46 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/index}">Home</a>
+                    <a class="nav-link" th:href="@{/index}" style="font-family: Bahnschrift,serif;">Główna</a>
                 </li>
-
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Login
+                    <a class="nav-link" href="#" style="font-family: Bahnschrift,serif;">Logowanie
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-
             </ul>
         </div>
     </div>
 </nav>
 
-
 <div class="container">
-
     <div class="row">
-        <div class="col-md-4 mt-5">
-
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4 mt-lg-5">
             <form method="post" th:action="@{/login}">
+                <div class="form-group">
+                    <label id="loginlabel" for="login" style="font-family: Bahnschrift,serif;">Identyfikator:</label>
+                    <input id="login" type="text" placeholder="Identyfikator" autocomplete="off" class="form-control" name="username" required oninvalid="this.setCustomValidity('Proszę podać identyfikator!')" oninput="this.setCustomValidity('')"/>
+                </div>
 
                 <div class="form-group">
-                    <label for="login">Login:</label>
-                    <input id="login" type="text" placeholder="Enter login" autocomplete="off" class="form-control" name="username"/>
+                    <label id="passwordlabel" for="password" style="font-family: Bahnschrift,serif;">Hasło:</label>
+                    <input id="password" type="password" placeholder="Hasło" autocomplete="off" class="form-control" name="password" required oninvalid="this.setCustomValidity('Proszę podać hasło!')" oninput="this.setCustomValidity('')"/>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input id="password" type="password" placeholder="Enter your password" autocomplete="off" class="form-control" name="password"/>
+                <div th:if="${param.error}" style="color:rgba(255, 255, 255, 0.9); text-shadow: 1px 1px 2px rgba(255, 0, 0, 1); margin-bottom:15px; font-family: Bahnschrift,serif; font-size:20px;">
+                    Wprowadzone dane uwierzytelniania są niewłaściwe!
                 </div>
 
-                <div th:if="${param.error}" style="color:red; margin-bottom:15px">
-                    ERROR: Invalid username or password!
-                </div>
-
-                <button class="btn btn-primary" type="submit" value="Sign In">Login</button>
+                <button id="loginbutton" class="btn btn-primary" type="submit" value="Zaloguj się">Zaloguj się</button>
             </form>
-
-
-
+        </div>
+        <div class="col-md-4">
         </div>
     </div>
 </div>
-
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
