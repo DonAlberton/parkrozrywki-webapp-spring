@@ -24,7 +24,7 @@ public class AtrakcjeDAO {
 
     /* Import java.util.List */
     public List<Atrakcje> list(){
-        String sql = "SELECT * FROM atrakcje";
+        String sql = "SELECT * FROM atrakcje order by id_atrakcji asc";
         //id_atrakcji, nazwa_atrakcji, cena_atrakcji, stan_atrakcji, minimalny_wzrost, data_otwarcia, wysokosc, czas_trwania
 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Atrakcje.class));

@@ -153,6 +153,17 @@ public class AppController implements WebMvcConfigurer {
     @Autowired
     private TransakcjeDAO transakcjeDAO;
 
+    @RequestMapping(value="/zapisz-transakcje", method = RequestMethod.POST)
+    public String zapiszTransakcje(@ModelAttribute("transakcja") Transakcje transakcja, @RequestParam("id_atrakcji") Integer id_atrakcji) throws ParseException {
+        Date data = new Date();
+        transakcja.setData(data);
+        transakcja.setId_atrakcji(id_atrakcji);
+        transakcja.setId_klienta(15);
+
+        transakcjeDAO.save(transakcja);
+
+        return "redirect:/wybor-atrakcji";
+    }
     @RequestMapping("/profile")
     public String showProfile(Model model){
         String remoteUser = request.getRemoteUser();

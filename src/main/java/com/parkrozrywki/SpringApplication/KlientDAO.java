@@ -25,7 +25,7 @@ public class KlientDAO {
 
     /* Import java.util.List */
     public List<Klient> list(){
-        String sql = "SELECT * FROM klienci";
+        String sql = "SELECT * FROM klienci order by id_klienta asc";
 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Klient.class));
     }

@@ -24,7 +24,7 @@ public class TransakcjeDAO {
 
     /* Import java.util.List */
     public List<Transakcje> list(String imie){
-        String sql = "select transakcje.id_klienta, transakcje.id_atrakcji, transakcje.data,atrakcje.nazwa_atrakcji from transakcje inner join atrakcje on transakcje.id_atrakcji = atrakcje.id_atrakcji where transakcje.id_klienta = 15";
+        String sql = "select transakcje.id_klienta, transakcje.id_atrakcji, transakcje.data,atrakcje.nazwa_atrakcji from transakcje inner join atrakcje on transakcje.id_atrakcji = atrakcje.id_atrakcji where transakcje.id_klienta = 15 order by transakcje.data desc";
 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Transakcje.class));
     }
@@ -35,6 +35,12 @@ public class TransakcjeDAO {
         Object[] args = {id};
         Transakcje transakcje = jdbcTemplate.queryForObject(sql, args, BeanPropertyRowMapper.newInstance(Transakcje.class));
         return transakcje;
+    }
+    public void save(Transakcje transakcja) {
+        SimpleJdbcInsert insertTransakcja = new SimpleJdbcInsert(jdbcTemplate);
+        insertTransakcja.withTableName("transakcje").usingColumns("id_klienta","id_atrakcji", "data");
+        BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(transakcja);
+        insertTransakcja.execute(param);
     }
 
 }
