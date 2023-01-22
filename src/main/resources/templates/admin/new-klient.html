@@ -8,21 +8,72 @@
 
 </head>
 
-<!-- <body th:style="'background: url(/assets/img/img.png) no-repeat center center fixed;'"> -->
+<style>
+    body {
+        background: url(https://i.imgur.com/LN0DVjy.jpg) no-repeat center fixed;
+        background-size: cover;
+    }
+    nav {
+        background-color:rgb(83, 35, 217, .8);
+        height: 70px;
+    }
+    #logoutbutton {
+        background-color: rgb(207, 2, 33, .8);
+        border-color: rgb(122, 7, 1);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #logoutbutton:hover {
+        background-color: whitesmoke;
+        border-color: rgb(122, 7, 1);
+        color: rgb(207, 2, 33, .8);
+        font-family: Bahnschrift,serif;
+    }
+    #dataform {
+        border-color: rgba(147, 170, 207);
+        background-color: rgba(0, 50, 135, 0.9);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+        max-width: max-content;
+    }
+    #pagelabel {
+        font-size:36px;
+        color: rgb(255, 255, 255);
+        text-shadow: 2px 2px 3px rgba(12, 12, 12, 1);
+        font-family: Bahnschrift,serif;
+    }
+    #submitbutton {
+        background-color: rgb(15, 150, 4);
+        border-color: rgb(8, 125, 1);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #submitbutton:hover {
+        background-color: rgb(127, 232, 118);
+        border-color: rgb(8, 125, 1);
+        color: rgb(15, 150, 4);
+        font-family: Bahnschrift,serif;
+    }
+    input[type=text] {
+        background-color: rgb(156, 185, 247);
+        color: black;
+        border-color: rgba(147, 170, 207);
+    }
+    input[type=text]:focus {
+        background-color: lightblue;
+        color: black;
+        border-color: rgba(147, 170, 207);
+    }
+</style>
 
-
-<!--<style th:inline="text">-->
-<!--    body{-->
-<!--        background: url([[@{/assets/img/img.png}]])-->
-<!--        no-repeat center center fixed;-->
-<!--    }-->
-<!--</style>-->
-
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+        <a class="nav-link" th:href="@{/main}" style="object-fit: cover;">
+            <img src="https://i.imgur.com/2vHh23v.png" style="height: 75px; width: 75px;" alt="logo">
+            <img src="https://i.imgur.com/zzhqe5b.png" style="height: 50px; width: 200px;" alt="logo2">
+            <span class="sr-only">(current)</span>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -30,50 +81,48 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/main}" style="font-family: Bahnschrift,serif;">Główna</a>
+                </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
+                    <a class="nav-link" th:href="@{/klienci}" style="font-family: Bahnschrift,serif;">Klienci
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/main}">Main</a>
+                    <a class="nav-link" th:href="@{/atrakcje}" style="font-family: Bahnschrift,serif;">Atrakcje</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/main}">Login</a></a>
+                    <a class="nav-link" th:inline="text" style="color:whitesmoke; font-family: Bahnschrift,serif;">Jesteś zalogowany jako administrator: <b
+                            style="text-transform:capitalize">[[${#httpServletRequest.remoteUser}]]</b></a>
                 </li>
-
+                <form method="post" th:action="@{/index}">
+                    <button id="logoutbutton" class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Wyloguj się">Logout
+                    </button>
+                </form>
             </ul>
         </div>
     </div>
 </nav>
 
-
-<!--Using images in page    -->
-<!-- <img th:src="@{/assets/img/img.png}" alt="Image" class="img-fluid"> -->
-
-
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-<body>
-
 <div align="center">
-    <!-- Table -->
-    <h1>Dodaj klienta</h1>
+    <div class="row justify-content-center">
+        <div class="col-3"></div>
+        <div id="pagelabel" class="col-md-6 mt-3">Dodaj klienta</div>
+        <div class="col-3"></div>
+    </div>
 
-    <!-- UWAGA th:object-->
-    <form action="#" th:action="@{/save}" th:object="${klient}" method="post">
+    <form id="dataform" action="#" th:action="@{/save}" th:object="${klient}" method="post">
         <table border="1" cellpadding="10">
             <tr>
                 <td>ID</td>
                 <td><input type="text" th:field="*{id_klienta}"></td>
             </tr>
             <tr>
-                <td>Imie</td>
+                <td>Imię</td>
                 <td><input type="text" th:field="*{imie}"></td>
             </tr>
             <tr>
@@ -81,7 +130,7 @@
                 <td><input type="text" th:field="*{nazwisko}"></td>
             </tr>
             <tr>
-                <td>Nr Telefonu</td>
+                <td>Numer telefonu</td>
                 <td><input type="text" th:field="*{numer_telefonu}"></td>
             </tr>
             <tr>
@@ -89,19 +138,22 @@
                 <td><input type="text" th:field="*{email}"></td>
             </tr>
             <tr>
-                <td>Id adresu</td>
+                <td>ID Adresu</td>
                 <td><input type="text" th:field="*{id_adresu}"></td>
             </tr>
 
             <tr>
                 <td colspan="2">
-                    <button type="submit">Save</button>
+                    <button class="btn btn-primary" id="submitbutton" type="submit">Zapisz</button>
                 </td>
             </tr>
         </table>
     </form>
 </div>
 
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

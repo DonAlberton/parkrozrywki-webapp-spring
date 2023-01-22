@@ -7,11 +7,89 @@
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 
 </head>
+<style>
+    body {
+        background: url(https://i.imgur.com/LN0DVjy.jpg) no-repeat center fixed;
+        background-size: cover;
+    }
+    nav {
+        background-color:rgb(83, 35, 217, .8);
+        height: 70px;
+    }
+    #logoutbutton {
+        background-color: rgb(207, 2, 33, .8);
+        border-color: rgb(122, 7, 1);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #logoutbutton:hover {
+        background-color: whitesmoke;
+        border-color: rgb(122, 7, 1);
+        color: rgb(207, 2, 33, .8);
+        font-family: Bahnschrift,serif;
+    }
+    #clienttable {
+        border-color: rgba(147, 170, 207);
+        background-color: rgba(0, 50, 135, 0.9);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #addclient {
+        height: 100%;
+        width: 100%;
+        background-color: rgb(15, 150, 4);
+        border-color: rgb(8, 125, 1);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #addclient:hover {
+        height: 100%;
+        width: 100%;
+        background-color: rgb(127, 232, 118);
+        border-color: rgb(8, 125, 1);
+        color: rgb(15, 150, 4);
+        font-family: Bahnschrift,serif;
+    }
+    #editclient {
+        background-color: rgb(245, 178, 22);
+        border-color: rgb(145, 103, 3);
+        color: black;
+        font-family: Bahnschrift,serif;
+    }
+    #editclient:hover {
+        background-color: rgb(184, 141, 40);
+        border-color: rgb(145, 103, 3);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #deleteclient {
+        background-color: rgb(207, 2, 33, .8);
+        border-color: rgb(122, 7, 1);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #deleteclient:hover {
+        background-color: whitesmoke;
+        border-color: rgb(122, 7, 1);
+        color: rgb(207, 2, 33, .8);
+        font-family: Bahnschrift,serif;
+    }
+    #pagelabel {
+        font-size:36px;
+        color: rgb(255, 255, 255);
+        text-shadow: 2px 2px 3px rgba(12, 12, 12, 1);
+        font-family: Bahnschrift,serif;
+    }
+</style>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+        <a class="nav-link" th:href="@{/main}" style="object-fit: cover;">
+            <img src="https://i.imgur.com/2vHh23v.png" style="height: 75px; width: 75px;" alt="logo">
+            <img src="https://i.imgur.com/zzhqe5b.png" style="height: 50px; width: 200px;" alt="logo2">
+            <span class="sr-only">(current)</span>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -20,61 +98,80 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
 
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/main}" style="font-family: Bahnschrift,serif;">Główna</a>
+                </li>
+
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
+                    <a class="nav-link" href="" style="font-family: Bahnschrift,serif;">Klienci
+                    <span class="sr-only">(current)</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/main}">Main</a>
+                    <a class="nav-link" th:href="@{/atrakcje}" style="font-family: Bahnschrift,serif;">Atrakcje</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/main}">Login</a></a>
+                    <a class="nav-link" th:inline="text" style="color:whitesmoke; font-family: Bahnschrift,serif;">Jesteś zalogowany jako administrator: <b
+                            style="text-transform:capitalize">[[${#httpServletRequest.remoteUser}]]</b></a>
                 </li>
-
+                <form method="post" th:action="@{/index}">
+                    <button id="logoutbutton" class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Wyloguj się">Logout
+                    </button>
+                </form>
             </ul>
         </div>
     </div>
 </nav>
 
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<body>
-
 <div align="center">
-    <!-- Table -->
-    <h1>Lista klientów</h1>
-    <a href="/new-klient">Wprowadz nowego klienta</a>
-    <table border="1" cellpadding="10"> <!-– border –
-        obramowanie, cellpadding – rozmiar komórki -->
-        <!-- Table header -->
-        <thead>
-        <tr> <!-- Table row -->
+    <div class="row justify-content-center">
+        <div class="col-3">
+        </div>
+        <div id="pagelabel" class="col-md-6 mt-3">Lista klientów</div>
+        <div class="col-3">
+        </div>
+    </div>
+
+    <table id="clienttable" border="1" cellpadding="10">
+        <thead style="text-align: center">
+        <tr>
             <th>ID</th>
-            <!–- Table column -->
-            <th>Imie</th>
+            <th>Imię</th>
             <th>Nazwisko</th>
-            <th>Action</th>
+            <th>Operacja</th>
         </tr>
         </thead>
-        <!-- Table body -->
-        <tbody>
+
+        <tbody style="text-align: center">
         <tr th:each="klient : ${listaKlientow}">
             <td th:text="${klient.id_klienta}">ID</td>
             <td th:text="${klient.imie}">Imie</td>
             <td th:text="${klient.nazwisko}">Nazwisko</td>
             <td>
-                <a th:href="@{'/edit-klient/' + ${klient.id_klienta}}">Edit</a>
-                <a th:href="@{'/delete/' + ${klient.id_klienta}}">Delete</a>
+                <div class="btn-group" role="group" aria-label="Operacje">
+                    <form method="post" th:action="@{'/edit-klient/' + ${klient.id_klienta}}">
+                        <button id="editclient" class="btn btn-secondary" onclick="">Edytuj</button>
+                    </form><form method="post" th:action="@{'/delete/' + ${klient.id_klienta}}">
+                    <button id="deleteclient" class="btn btn-secondary" onclick="">Usuń</button></form>
+                </div>
             </td>
-
+        </tr>
+        <tr>
+            <td>
+                <form method="post" th:action="@{/new-klient}">
+                    <button id="addclient" class="btn btn-primary" onclick="">+</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

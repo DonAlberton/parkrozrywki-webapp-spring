@@ -2,27 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Welcome Page</title>
+    <title>Fabryka Tęczy</title>
 
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 
 </head>
 
-<!-- <body th:style="'background: url(/assets/img/img.png) no-repeat center center fixed;'"> -->
+<style>
+    body {
+        background: url(https://i.imgur.com/JpVa7aI.jpg) no-repeat center fixed;
+        background-size: cover;
+    }
+    nav {
+        background-color:rgb(252, 75, 66, .8);
+        height: 70px;
+    }
+</style>
 
-
-<!--<style th:inline="text">-->
-<!--    body{-->
-<!--        background: url([[@{/assets/img/img.png}]])-->
-<!--        no-repeat center center fixed;-->
-<!--    }-->
-<!--</style>-->
-
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark static-top" >
     <div class="container">
-        <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+        <a class="nav-link" href="" style="object-fit: cover;">
+            <img src="https://i.imgur.com/2vHh23v.png" style="height: 75px; width: 75px;" alt="logo">
+            <img src="https://i.imgur.com/zzhqe5b.png" style="height: 50px; width: 200px;" alt="logo2">
+            <span class="sr-only">(current)</span>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -32,71 +36,31 @@
             <ul class="navbar-nav ml-auto">
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
+                    <a class="nav-link" href="#" style="font-family: Bahnschrift,serif;">Główna
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/main}">Main</a>
+                    <a class="nav-link" th:href="@{/main}" style="font-family: Bahnschrift,serif;">Logowanie</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/main}">Login</a></a>
-                </li>
-
             </ul>
         </div>
     </div>
 </nav>
 
-
-<!--Using images in page    -->
-<!-- <img th:src="@{/assets/img/img.png}" alt="Image" class="img-fluid"> -->
-
-
 <div class="container">
     <div class="row">
-        <div class="col-md-10 mt-5">
-
-            <label style="font-size:30px">Welcome to the home page!</label>
-            <div style="font-size:20px">If you want to login, click <a th:href="@{/main}"><b>here</b></a> or in the
-                upper right corner.
+        <div class="col-xl-4">
+        </div>
+        <div class="col-xl-8 offset-md-5 mt-5" style="text-align: right;">
+            <label style="font-size:48px; color: rgb(255, 255, 255); text-shadow: 2px 2px 3px rgba(12, 12, 12, 1);">Witamy w największym parku rozrywki w Polsce!</label>
+            <div style="font-size:32px; color: rgb(255, 255, 255); text-shadow: 2px 2px 3px rgba(12, 12, 12, 1);">Tu tworzy się magia!</div>
+            <div style="font-size:36px; color: rgb(255, 255, 255); text-shadow: 2px 2px 3px rgba(12, 12, 12, 1);"><a th:href="@{/login}"><b>Zaloguj się</b></a>, żeby otrzymać dostęp do swojego konta.
             </div>
-
         </div>
     </div>
 </div>
-
-<!--<div align="center">
-    <h1>Sales Records</h1>
-
-    <table border="1" cellpadding="10">
-
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Item Name</th>
-            <th>Quantity</th>
-            <th>Amount</th>
-            <th>Action</th>
-
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="sale : ${listSale}">
-            <td th:text="${sale.id}">ID</td>
-            <td th:text="${sale.item}">Item Name</td>
-            <td th:text="${sale.quantity}">Quantity</td>
-            <td th:text="${sale.amount}">Amount</td>
-        </tr>
-        </tbody>
-
-    </table>
-
-</div>-->
-
 
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
