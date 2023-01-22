@@ -15,28 +15,29 @@
 <div align="center">
     <h1>Lista Atrakcji</h1>
     <table border="1" cellpadding="10">
-        <!-- Table header -->
         <thead>
-        <tr> <!-- Table row -->
-            <th>Nazwa atrakcji</th>
+        <tr>
+            <th>ID</th>
+            <th>Atrakcja</th>
             <th>Cena</th>
             <th>Minimalny wzrost</th>
         </tr>
         </thead>
-
-        <!-- Table body -->
         <tbody>
         <tr th:each="atrakcja : ${listaAtrakcji}">
-            <td th:text="${atrakcja.nazwa_atrakcji}">Atrakcja</td>
-            <td th:text="${atrakcja.cena_atrakcji}">Cena</td>
-            <td th:text="${atrakcja.minimalny_wzrost}">Minimalny wzrost</td>
+            <td th:text="${atrakcja.id_atrakcji}"></td>
+            <td th:text="${atrakcja.nazwa_atrakcji}"></td>
+            <td th:text="${atrakcja.cena_atrakcji}"></td>
+            <td th:text="${atrakcja.minimalny_wzrost}"></td>
             <td>
-                <a th:href="@{'/zapisz-transakcje'}">Kup</a>
+                <form id="dataform" th:action="@{'/zapisz-transakcje/' + ${atrakcja.id_atrakcji}}" th:object="${atrakcja}" method="post">
+                    <button class="btn btn-primary" id="submitbutton" type="submit">Zapisz</button>
+                </form>
             </td>
-
         </tr>
         </tbody>
     </table>
+
 </div>
 
 </body>

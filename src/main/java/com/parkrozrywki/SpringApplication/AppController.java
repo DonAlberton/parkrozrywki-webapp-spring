@@ -14,10 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 @Configuration
@@ -34,7 +31,7 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/klienci").setViewName("admin/klienci");
         registry.addViewController("/new-klient").setViewName("new-klient");
         registry.addViewController("/edit/{id}").setViewName("user/edit-form");
-        registry.addViewController("/save").setViewName("save");
+        registry.addViewController("/zapisz-transakcje/{id}").setViewName("zapisz-transakcje");
 
         registry.addViewController("/wybor-atrakcji").setViewName("user/wybor-atrakcji");
         registry.addViewController("/profile").setViewName("user/profile");
@@ -153,12 +150,13 @@ public class AppController implements WebMvcConfigurer {
     @Autowired
     private TransakcjeDAO transakcjeDAO;
 
-    @RequestMapping(value="/zapisz-transakcje", method = RequestMethod.POST)
-    public String zapiszTransakcje(@ModelAttribute("transakcja") Transakcje transakcja, @RequestParam("id_atrakcji") Integer id_atrakcji) throws ParseException {
+    @RequestMapping(value="/zapisz-transakcje/{id_atrakcji}")
+    public String zapiszTransakcje(@PathVariable(name="id_atrakcji") int id_atrakcji){
         Date data = new Date();
-        transakcja.setData(data);
-        transakcja.setId_atrakcji(id_atrakcji);
-        transakcja.setId_klienta(15);
+        //System.out.println(id_atrakcji);
+        Transakcje transakcja = new Transakcje(15, id_atrakcji, null, data);
+
+
 
         transakcjeDAO.save(transakcja);
 

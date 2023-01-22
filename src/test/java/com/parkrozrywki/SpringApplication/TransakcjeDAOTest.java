@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +36,13 @@ class TransakcjeDAOTest {
 
     }
 
+    @Test
+    void save() {
+        Date data = new Date();
+        Transakcje transakcje = new Transakcje(8, null, null, data);
 
+        dao.save(transakcje);
+    }
     @Test
     void list() {
     }
