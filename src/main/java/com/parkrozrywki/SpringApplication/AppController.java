@@ -37,6 +37,7 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/save").setViewName("save");
 
         registry.addViewController("/wybor-atrakcji").setViewName("user/wybor-atrakcji");
+        registry.addViewController("/profile").setViewName("user/profile");
 
         registry.addViewController("/atrakcje").setViewName("admin/atrakcje");
         registry.addViewController("/nowa-atrakcja").setViewName("admin/nowa-atrakcja");
@@ -143,6 +144,33 @@ public class AppController implements WebMvcConfigurer {
     @Autowired
     private KlientDAO dao;
 
+    @Autowired
+    private HttpServletRequest request;
+
+    @RequestMapping("/profile")
+    public String showProfile(Model model){
+        String remoteUser = request.getRemoteUser();
+        Klient klient = dao.getProfile(remoteUser);
+
+        model.addAttribute("mojProfil", klient);
+
+        return "user/profile";
+    }
+    @RequestMapping("/edit/{id}")
+    public ModelAndView showEditForm(@PathVariable(name="id") int id){
+        ModelAndView mav = new ModelAndView("user/edit-form");
+        Klient klient = dao.get(id);
+        mav.addObject("klient", klient);
+
+        return mav;
+    }
+
+    @RequestMapping(value="/update", method=RequestMethod.POST)
+    public String update(@ModelAttribute("klient") Klient klient){
+        dao.update(klient);
+        return "redirect:/profile";
+    }
+
     @RequestMapping("/klienci")
     public String showKlienciPage(Model model){
         List<Klient> listaKlientow = dao.list();
@@ -164,24 +192,11 @@ public class AppController implements WebMvcConfigurer {
         dao.save(klient);
         return "redirect:/";
     }
-    @RequestMapping("/edit/{id}")
-    public ModelAndView showEditForm(@PathVariable(name="id") int id){
-        ModelAndView mav = new ModelAndView("edit-form");
-        Klient klient = dao.get(id);
-        mav.addObject("klient", klient);
 
-        return mav;
-    }
     @RequestMapping("/delete/{id}")
     public String deleteKlient(@PathVariable(name = "id") int id){
         dao.delete(id);
 
-        return "redirect:/";
-    }
-
-    @RequestMapping(value="/update", method=RequestMethod.POST)
-    public String update(@ModelAttribute("klient") Klient klient){
-        dao.update(klient);
         return "redirect:/";
     }
 

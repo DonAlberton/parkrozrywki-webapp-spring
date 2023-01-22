@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +52,7 @@ class KlientDAOTest {
 
     @Test
     void save() {
-        Klient klient = new Klient(12, "Don", "Alberton", "4326417", "Donalberto@gmail.com", 1);
+        Klient klient = new Klient(12, "Don", "Alberton", "000000000", "Donalberto@gmail.com", 1);
         dao.save(klient);
     }
 
@@ -66,7 +67,9 @@ class KlientDAOTest {
     void update() {
         Integer id = 7;
         Klient klient = new Klient();
-        //klient.setId_klienta();
+        klient.setId_klienta(1);
+        klient.setNumer_telefonu("000000000");
+        dao.update(klient);
     }
 
     @Test

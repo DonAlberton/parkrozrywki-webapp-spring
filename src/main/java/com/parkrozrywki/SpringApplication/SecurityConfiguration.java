@@ -7,16 +7,22 @@ import
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
+
+    auth.inMemoryAuthentication()
+                .withUser("Alberto")
                 .password("user")
                 .roles("USER")
                 .and()
@@ -38,6 +44,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/main_admin").access("hasRole('ADMIN')")
                 .antMatchers("/main_user").access("hasRole('USER')")
                 .antMatchers("/wybor-atrakcji").access("hasRole('USER')")
+                .antMatchers("/profile").access("hasRole('USER')")
+
+                .antMatchers("/edit-form").access("hasRole('USER')")
+
                 .antMatchers("/atrakcje").access("hasRole('ADMIN')")
                 .antMatchers("/nowa-atrakcja").access("hasRole('ADMIN')")
                 .antMatchers("/zapisz-atrakcje").access("hasRole('ADMIN')")
