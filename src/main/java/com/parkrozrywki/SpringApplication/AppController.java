@@ -31,7 +31,7 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/main_admin").setViewName("admin/main_admin");
         registry.addViewController("/main_user").setViewName("user/main_user");
 
-        registry.addViewController("/klienci").setViewName("klienci");
+        registry.addViewController("/klienci").setViewName("admin/klienci");
         registry.addViewController("/new-klient").setViewName("new-klient");
         registry.addViewController("/edit/{id}").setViewName("edit-form");
         registry.addViewController("/save").setViewName("save");
@@ -147,11 +147,18 @@ public class AppController implements WebMvcConfigurer {
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private TransakcjeDAO transakcjeDAO;
+
     @RequestMapping("/profile")
     public String showProfile(Model model){
         String remoteUser = request.getRemoteUser();
         Klient klient = dao.getProfile(remoteUser);
 
+        List<Transakcje> transakcje = transakcjeDAO.list(remoteUser);
+
+
+        model.addAttribute("transakcje", transakcje);
         model.addAttribute("mojProfil", klient);
 
         return "user/profile";
@@ -176,7 +183,7 @@ public class AppController implements WebMvcConfigurer {
         List<Klient> listaKlientow = dao.list();
         model.addAttribute("listaKlientow", listaKlientow);
 
-        return "klienci";
+        return "admin/klienci";
     }
 
 
@@ -190,14 +197,14 @@ public class AppController implements WebMvcConfigurer {
     @RequestMapping(value="/save", method = RequestMethod.POST)
     public String save(@ModelAttribute("klient") Klient klient){
         dao.save(klient);
-        return "redirect:/";
+        return "redirect:/klienci";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteKlient(@PathVariable(name = "id") int id){
         dao.delete(id);
 
-        return "redirect:/";
+        return "redirect:/klienci";
     }
 
     @RequestMapping(value={"/main_admin"})
