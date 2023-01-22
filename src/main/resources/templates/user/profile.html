@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<body>
+
+<div align="center">
+    <!-- Table -->
+    <h1>Moj Profil</h1>
+        <table border="1" cellpadding="10"> <!-– border –
+        obramowanie, cellpadding – rozmiar komórki -->
+        <!-- Table header -->
+        <thead>
+        <tr> <!-- Table row -->
+            <th>ID</th>
+            <!–- Table column -->
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>Numer Tel</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody>
+        <tr>
+            <td th:text="${mojProfil.id_klienta}">ID</td>
+            <td th:text="${mojProfil.imie}">Imie</td>
+            <td th:text="${mojProfil.nazwisko}">Nazwisko</td>
+            <td th:text="${mojProfil.numer_telefonu}">Numer Telefonu</td>
+            <td th:text="${mojProfil.email}">Email</td>
+
+            <td>
+                <a th:href="@{'/edit/' + ${mojProfil.id_klienta}}">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

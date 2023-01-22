@@ -37,6 +37,7 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/save").setViewName("save");
 
         registry.addViewController("/wybor-atrakcji").setViewName("user/wybor-atrakcji");
+        registry.addViewController("/profile").setViewName("user/profile");
 
         registry.addViewController("/atrakcje").setViewName("admin/atrakcje");
         registry.addViewController("/nowa-atrakcja").setViewName("admin/nowa-atrakcja");
@@ -142,6 +143,19 @@ public class AppController implements WebMvcConfigurer {
 
     @Autowired
     private KlientDAO dao;
+
+    @Autowired
+    private HttpServletRequest request;
+
+    @RequestMapping("/profile")
+    public String showProfile(Model model){
+        String remoteUser = request.getRemoteUser();
+        Klient klient = dao.getProfile(remoteUser);
+
+        model.addAttribute("mojProfil", klient);
+
+        return "user/profile";
+    }
 
     @RequestMapping("/klienci")
     public String showKlienciPage(Model model){

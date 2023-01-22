@@ -29,6 +29,7 @@ public class KlientDAO {
 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Klient.class));
     }
+
     /* Insert – wstawianie nowego wiersza do bazy */
     public void save(Klient klient) {
         SimpleJdbcInsert insertKlient = new SimpleJdbcInsert(jdbcTemplate);
@@ -45,6 +46,13 @@ public class KlientDAO {
         return klient;
     }
 
+    public Klient getProfile(String imie) {
+        String sql = "SELECT * FROM klienci WHERE imie = ?";
+        Object[] args = {imie};
+        Klient klient = jdbcTemplate.queryForObject(sql, args, BeanPropertyRowMapper.newInstance(Klient.class));
+        return klient;
+    }
+
     public Klient get1(int id){
         Object[] args = {id};
         String sql = "SELECT * FROM klienci WHERE id_klienta = " + args[0];
@@ -53,7 +61,7 @@ public class KlientDAO {
     }
     /* Update – aktualizacja danych */
     public void update(Klient klient) {
-        String sql = "UPDATE klienci SET imie=:imie, nazwisko=:nazwisko WHERE id_klienta=:id_klienta";
+        String sql = "UPDATE klienci SET imie=:imie, nazwisko=:nazwisko, numer_telefonu=:numer_telefonu, email=:email, id_adresu=:id_adresu WHERE id_klienta=:id_klienta";
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(klient);
         NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
 
