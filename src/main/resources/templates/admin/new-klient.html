@@ -99,7 +99,7 @@
                             style="text-transform:capitalize">[[${#httpServletRequest.remoteUser}]]</b></a>
                 </li>
                 <form method="post" th:action="@{/index}">
-                    <button id="logoutbutton" class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Wyloguj się">Logout
+                    <button id="logoutbutton" class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Wyloguj się">Wyloguj się
                     </button>
                 </form>
             </ul>
@@ -118,15 +118,15 @@
         <table border="1" cellpadding="10">
             <tr>
                 <td>ID</td>
-                <td><input type="text" th:field="*{id_klienta}"></td>
+                <td><input type="text" th:field="*{id_klienta}" required oninvalid="this.setCustomValidity('To pole jest wymagane!')"></td>
             </tr>
             <tr>
                 <td>Imię</td>
-                <td><input type="text" th:field="*{imie}"></td>
+                <td><input type="text" th:field="*{imie}" required oninvalid="this.setCustomValidity('To pole jest wymagane!')"></td>
             </tr>
             <tr>
                 <td>Nazwisko</td>
-                <td><input type="text" th:field="*{nazwisko}"></td>
+                <td><input type="text" th:field="*{nazwisko}" required oninvalid="this.setCustomValidity('To pole jest wymagane!')"></td>
             </tr>
             <tr>
                 <td>Numer telefonu</td>

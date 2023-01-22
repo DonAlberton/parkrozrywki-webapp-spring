@@ -6,58 +6,160 @@
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 </head>
 
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<style>
+    body {
+        background: url(https://i.imgur.com/imWA1H0.jpg) no-repeat center fixed;
+        background-size: cover;
+    }
+    nav {
+        background-color:rgb(252, 75, 66, .8);
+        height: 70px;
+    }
+    #logoutbutton {
+        background-color:rgb(207, 2, 33, .8);
+        border-color: rgb(122, 7, 1);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #logoutbutton:hover {
+        background-color: whitesmoke;
+        border-color: rgb(122, 7, 1);
+        color: rgb(207, 2, 33, .8);
+        font-family: Bahnschrift,serif;
+    }
+    #profiletable {
+        border-color: rgba(255, 80, 15);
+        background-color: rgba(235, 101, 94, 0.9);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #editprofile {
+        background-color: rgb(245, 178, 22);
+        border-color: rgb(145, 103, 3);
+        color: black;
+        font-family: Bahnschrift,serif;
+    }
+    #editprofile:hover {
+        background-color: rgb(184, 141, 40);
+        border-color: rgb(145, 103, 3);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #orderlist {
+        border-color: rgba(255, 80, 15);
+        background-color: rgba(235, 101, 94, 0.9);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #pagelabel {
+        font-size:36px;
+        color: rgb(255, 255, 255);
+        text-shadow: 2px 2px 3px rgba(12, 12, 12, 1);
+        font-family: Bahnschrift,serif;
+    }
+    #pagelabel2 {
+        font-size:36px;
+        color: rgb(255, 255, 255);
+        text-shadow: 2px 2px 3px rgba(12, 12, 12, 1);
+        font-family: Bahnschrift,serif;
+    }
+</style>
 
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark static-top">
+    <div class="container">
+        <a class="nav-link" th:href="@{/main}" style="object-fit: cover;">
+            <img src="https://i.imgur.com/2vHh23v.png" style="height: 75px; width: 75px;" alt="logo">
+            <img src="https://i.imgur.com/zzhqe5b.png" style="height: 50px; width: 200px;" alt="logo2">
+            <span class="sr-only">(current)</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/main}" style="font-family: Bahnschrift,serif;">Główna</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/wybor-atrakcji}" style="font-family: Bahnschrift,serif;">Kup bilety</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/profile}" style="font-family: Bahnschrift,serif;">Moje dane
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:inline="text" style="color:whitesmoke; font-family: Bahnschrift,serif;">Jesteś zalogowany: <b
+                            style="text-transform:capitalize">[[${#httpServletRequest.remoteUser}]]</b></a>
+                </li>
+                <form method="post" th:action="@{/index}">
+                    <button id="logoutbutton" class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Wyloguj się">Wyloguj się
+                    </button>
+                </form>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <div align="center">
-    <!-- Table -->
-    <h1>Moj Profil</h1>
-        <table border="1" cellpadding="10"> <!-– border –
-        obramowanie, cellpadding – rozmiar komórki -->
-        <!-- Table header -->
-        <thead>
-        <tr> <!-- Table row -->
+    <div class="row justify-content-center">
+        <div class="col-3">
+        </div>
+        <div id="pagelabel" class="col-md-6 mt-4">Mój profil</div>
+        <div class="col-3">
+        </div>
+    </div>
+    <table id="profiletable" border="1" cellpadding="10">
+        <thead style="text-align: center">
+        <tr>
             <th>ID</th>
-            <!–- Table column -->
-            <th>Imie</th>
+            <th>Imię</th>
             <th>Nazwisko</th>
-            <th>Numer Tel</th>
+            <th>Numer telefonu</th>
             <th>Email</th>
-            <th>Action</th>
+            <th>Operacja</th>
         </tr>
         </thead>
-        <!-- Table body -->
-        <tbody>
+
+        <tbody style="text-align: center">
         <tr>
             <td th:text="${mojProfil.id_klienta}">ID</td>
-            <td th:text="${mojProfil.imie}">Imie</td>
+            <td th:text="${mojProfil.imie}">Imię</td>
             <td th:text="${mojProfil.nazwisko}">Nazwisko</td>
-            <td th:text="${mojProfil.numer_telefonu}">Numer Telefonu</td>
+            <td th:text="${mojProfil.numer_telefonu}">Numer telefonu</td>
             <td th:text="${mojProfil.email}">Email</td>
-
             <td>
-                <a th:href="@{'/edit/' + ${mojProfil.id_klienta}}">Edit</a>
+                <form method="post" th:action="@{'/edit/' + ${mojProfil.id_klienta}}">
+                    <button id="editprofile" class="btn btn-primary" onclick="">Edytuj</button>
+                </form>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <h1>Moje zamowienia</h1>
-    <table border="1" cellpadding="10"> <!-– border –
-        obramowanie, cellpadding – rozmiar komórki -->
-        <!-- Table header -->
-        <thead>
-        <tr> <!-- Table row -->
-            <th>Nazwa atrakcji</th>
-            <th>Data zamowienia</th>
+    <div class="row justify-content-center">
+        <div class="col-3">
+        </div>
+        <div id="pagelabel2" class="col-md-6 mt-5">Moje zamówienia</div>
+        <div class="col-3">
+        </div>
+    </div>
 
+    <table id="orderlist" border="1" cellpadding="10">
+        <thead style="text-align: center">
+        <tr>
+            <th>Nazwa atrakcji</th>
+            <th>Data zamówienia</th>
         </tr>
         </thead>
-        <!-- Table body -->
-        <tbody>
+
+        <tbody style="text-align: center">
         <tr th:each="transakcja : ${transakcje}">
             <td th:text="${transakcja.nazwa_atrakcji}">Nazwa atrakcji</td>
             <td th:text="${transakcja.data}">Data</td>
@@ -65,6 +167,10 @@
         </tbody>
     </table>
 </div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

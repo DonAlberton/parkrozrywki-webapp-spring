@@ -2,17 +2,71 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Main User Page</title>
+    <title>Fabryka Tęczy</title>
 
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 
 </head>
-<body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+<style>
+    body {
+        background: url(https://i.imgur.com/imWA1H0.jpg) no-repeat center fixed;
+        background-size: cover;
+    }
+    nav {
+        background-color:rgb(252, 75, 66, .8);
+        height: 70px;
+    }
+    #logoutbutton {
+        background-color:rgb(207, 2, 33, .8);
+        border-color: rgb(122, 7, 1);
+        color: whitesmoke;
+        font-family: Bahnschrift,serif;
+    }
+    #logoutbutton:hover {
+        background-color: whitesmoke;
+        border-color: rgb(122, 7, 1);
+        color: rgb(207, 2, 33, .8);
+        font-family: Bahnschrift,serif;
+    }
+    #functionbtn {
+        background-color: rgba(242, 97, 97, 0.85);
+        color: black;
+        font-family: Bahnschrift,serif;
+        font-size: 28px;
+        width: 70%;
+    }
+    #functionbtn:hover {
+        background-color: rgba(242, 136, 136, 0.85);
+        color: black;
+        font-family: Bahnschrift,serif;
+        font-size: 28px;
+        width: 70%;
+    }
+    #functionbtn2 {
+        background-color: rgba(242, 97, 97, 0.85);
+        color: black;
+        font-family: Bahnschrift,serif;
+        font-size: 28px;
+        width: 70%;
+    }
+    #functionbtn2:hover {
+        background-color: rgba(242, 136, 136, 0.85);
+        color: black;
+        font-family: Bahnschrift,serif;
+        font-size: 28px;
+        width: 70%;
+    }
+</style>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark static-top">
     <div class="container">
-        <a class="navbar-brand" href="/">BDBT Spring Boot Project - Part II</a>
+        <a class="nav-link" href="" style="object-fit: cover;">
+            <img src="https://i.imgur.com/2vHh23v.png" style="height: 75px; width: 75px;" alt="logo">
+            <img src="https://i.imgur.com/zzhqe5b.png" style="height: 50px; width: 200px;" alt="logo2">
+            <span class="sr-only">(current)</span>
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -20,22 +74,28 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/index}">Home</a>
-                </li>
-
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Main
+                    <a class="nav-link" href="" style="color: whitesmoke; font-family: Bahnschrift,serif;">Główna
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" th:inline="text" style="color:lightskyblue;">You are logged in as <b
-                            style="text-transform:capitalize">[[${#httpServletRequest.remoteUser}]]</b></a>
+                    <a class="nav-link" th:href="@{/wybor-atrakcji}" style="font-family: Bahnschrift,serif;">Kup bilety</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/profile}" style="font-family: Bahnschrift,serif;">Moje dane</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:inline="text" style="color:whitesmoke; font-family: Bahnschrift,serif;">Jesteś zalogowany: <b
+                            style="text-transform:capitalize">[[${#httpServletRequest.remoteUser}]]</b></a>
+                </li>
+                <form method="post" th:action="@{/index}">
+                    <button id="logoutbutton" class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Wyloguj się">Wyloguj się
+                    </button>
+                </form>
             </ul>
         </div>
     </div>
@@ -43,21 +103,26 @@
 
 <div class="container">
     <div class="row">
-
-        <div class="col-md-10 mt-5">
-            <form method="post" th:action="@{/index}">
-                <div class="form-group">
-                    <label style="font-size:30px" th:inline="text">Welcome <a
-                            style="color:lightskyblue; text-transform:capitalize"><b>[[${#httpServletRequest.remoteUser}]]</b></a>
-                        to the main page!</label>
-                    <div style="font-size:20px">If you want to logout, click "Logout" button under this text.</div>
-                </div>
-
-                <button class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Sign Out">Logout
-                </button>
-            </form>
+        <div class="col-xl-3">
         </div>
-
+        <div class="col-xl-9 offset-md-5 mt-5" style="text-align: right;">
+            <div style="font-size:54px; color: rgb(255, 255, 255); text-shadow: 2px 2px 3px rgba(12, 12, 12, 1); text-align: right;">Witamy w naszym parku rozrywki!</div>
+            <div style="font-size:40px; color: rgb(255, 255, 255); text-shadow: 2px 2px 3px rgba(12, 12, 12, 1); text-align: right;">Na tej stronie szybko i łatwo możesz:</div>
+            <div class="btn-group" role="group" aria-label="Operacje" style="display: block;">
+                <form method="post" th:action="@{/wybor-atrakcji}">
+                    <button class="btn btn-secondary" id="functionbtn">
+                        <img src="https://i.imgur.com/ZYnpMo0.png" style="height: 100px; width: 100px;">
+                        Kupić bilety na atrakcję
+                    </button>
+                </form>
+                <form method="post" th:action="@{/profile}">
+                    <button class="btn btn-secondary" id="functionbtn2">
+                    <img src="https://i.imgur.com/ZMhVJv6.png" style="height: 100px; width: 100px;">
+                    Sprawdzić i zmienić swoje dane
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

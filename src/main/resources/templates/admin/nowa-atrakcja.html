@@ -112,7 +112,7 @@
                             style="text-transform:capitalize">[[${#httpServletRequest.remoteUser}]]</b></a>
                 </li>
                 <form method="post" th:action="@{/index}">
-                    <button id="logoutbutton" class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Wyloguj się">Logout
+                    <button id="logoutbutton" class="btn btn-primary" type="submit" onclick="successfullyLogout()" value="Wyloguj się">Wyloguj się
                     </button>
                 </form>
             </ul>
@@ -136,7 +136,7 @@
             </tr>
             <tr>
                 <td>Nazwa</td>
-                <td><input type="text" th:field="*{nazwa_atrakcji}"></td>
+                <td><input type="text" th:field="*{nazwa_atrakcji}" required oninvalid="this.setCustomValidity('To pole jest wymagane!')"></td>
             </tr>
             <tr>
                 <td>Cena</td>
