@@ -44,6 +44,26 @@
         </tr>
         </tbody>
     </table>
+
+    <h1>Moje zamowienia</h1>
+    <table border="1" cellpadding="10"> <!-– border –
+        obramowanie, cellpadding – rozmiar komórki -->
+        <!-- Table header -->
+        <thead>
+        <tr> <!-- Table row -->
+            <th>Nazwa atrakcji</th>
+            <th>Data zamowienia</th>
+
+        </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody>
+        <tr th:each="transakcja : ${transakcje}">
+            <td th:text="${transakcja.nazwa_atrakcji}">Nazwa atrakcji</td>
+            <td th:text="${transakcja.data}">Data</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </body>

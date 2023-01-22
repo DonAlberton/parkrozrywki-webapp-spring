@@ -31,17 +31,20 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/main_admin").setViewName("admin/main_admin");
         registry.addViewController("/main_user").setViewName("user/main_user");
 
-        registry.addViewController("/klienci").setViewName("klienci");
+        registry.addViewController("/klienci").setViewName("admin/klienci");
         registry.addViewController("/new-klient").setViewName("new-klient");
-        registry.addViewController("/edit/{id}").setViewName("edit-form");
+        registry.addViewController("/edit/{id}").setViewName("user/edit-form");
         registry.addViewController("/save").setViewName("save");
 
         registry.addViewController("/wybor-atrakcji").setViewName("user/wybor-atrakcji");
         registry.addViewController("/profile").setViewName("user/profile");
 
+
         registry.addViewController("/atrakcje").setViewName("admin/atrakcje");
         registry.addViewController("/nowa-atrakcja").setViewName("admin/nowa-atrakcja");
         registry.addViewController("/edytuj-atrakcje/{id}").setViewName("admin/edytuj-atrakcje");
+        registry.addViewController("/edit-klient/{id}").setViewName("admin/edit-form");
+        registry.addViewController("/new-klient").setViewName("admin/new-klient");
     }
 
     @Controller
@@ -147,17 +150,33 @@ public class AppController implements WebMvcConfigurer {
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private TransakcjeDAO transakcjeDAO;
+
     @RequestMapping("/profile")
     public String showProfile(Model model){
         String remoteUser = request.getRemoteUser();
         Klient klient = dao.getProfile(remoteUser);
 
+        List<Transakcje> transakcje = transakcjeDAO.list(remoteUser);
+
+
+        model.addAttribute("transakcje", transakcje);
         model.addAttribute("mojProfil", klient);
 
         return "user/profile";
     }
-    @RequestMapping("/edit/{id}")
+    @RequestMapping("/edit-klient/{id}")
     public ModelAndView showEditForm(@PathVariable(name="id") int id){
+        ModelAndView mav = new ModelAndView("admin/edit-form");
+        Klient klient = dao.get(id);
+        mav.addObject("klient", klient);
+
+        return mav;
+    }
+
+    @RequestMapping("/edit/{id}")
+    public ModelAndView editUser(@PathVariable(name="id") int id){
         ModelAndView mav = new ModelAndView("user/edit-form");
         Klient klient = dao.get(id);
         mav.addObject("klient", klient);
@@ -170,13 +189,18 @@ public class AppController implements WebMvcConfigurer {
         dao.update(klient);
         return "redirect:/profile";
     }
+    @RequestMapping(value="/update-klient", method=RequestMethod.POST)
+    public String updateKlient(@ModelAttribute("klient") Klient klient){
+        dao.update(klient);
+        return "redirect:/klienci";
+    }
 
     @RequestMapping("/klienci")
     public String showKlienciPage(Model model){
         List<Klient> listaKlientow = dao.list();
         model.addAttribute("listaKlientow", listaKlientow);
 
-        return "klienci";
+        return "admin/klienci";
     }
 
 
@@ -185,19 +209,19 @@ public class AppController implements WebMvcConfigurer {
         Klient klient = new Klient();
         model.addAttribute("klient", klient);
 
-        return "new-klient";
+        return "admin/new-klient";
     }
     @RequestMapping(value="/save", method = RequestMethod.POST)
     public String save(@ModelAttribute("klient") Klient klient){
         dao.save(klient);
-        return "redirect:/";
+        return "redirect:/klienci";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteKlient(@PathVariable(name = "id") int id){
         dao.delete(id);
 
-        return "redirect:/";
+        return "redirect:/klienci";
     }
 
     @RequestMapping(value={"/main_admin"})

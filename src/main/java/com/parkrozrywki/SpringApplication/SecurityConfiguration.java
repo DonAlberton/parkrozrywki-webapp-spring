@@ -47,11 +47,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/profile").access("hasRole('USER')")
 
                 .antMatchers("/edit-form").access("hasRole('USER')")
-
+                .antMatchers("/edit-form").access("hasRole('ADMIN')")
                 .antMatchers("/atrakcje").access("hasRole('ADMIN')")
                 .antMatchers("/nowa-atrakcja").access("hasRole('ADMIN')")
                 .antMatchers("/zapisz-atrakcje").access("hasRole('ADMIN')")
                 .antMatchers("/edytuj-atrakcje/{id}").access("hasRole('ADMIN')")
+                .antMatchers("/klienci").access("hasRole('ADMIN')")
+                .antMatchers("/new-klient").access("hasRole('ADMIN')")
                 .and()
                 .formLogin()
                 .loginPage("/login")
