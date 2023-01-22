@@ -39,10 +39,12 @@ public class AppController implements WebMvcConfigurer {
         registry.addViewController("/wybor-atrakcji").setViewName("user/wybor-atrakcji");
         registry.addViewController("/profile").setViewName("user/profile");
 
+
         registry.addViewController("/atrakcje").setViewName("admin/atrakcje");
         registry.addViewController("/nowa-atrakcja").setViewName("admin/nowa-atrakcja");
         registry.addViewController("/edytuj-atrakcje/{id}").setViewName("admin/edytuj-atrakcje");
         registry.addViewController("/edit-klient/{id}").setViewName("admin/edit-form");
+        registry.addViewController("/new-klient").setViewName("admin/new-klient");
     }
 
     @Controller
@@ -207,7 +209,7 @@ public class AppController implements WebMvcConfigurer {
         Klient klient = new Klient();
         model.addAttribute("klient", klient);
 
-        return "new-klient";
+        return "admin/new-klient";
     }
     @RequestMapping(value="/save", method = RequestMethod.POST)
     public String save(@ModelAttribute("klient") Klient klient){
