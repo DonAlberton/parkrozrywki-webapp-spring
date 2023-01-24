@@ -135,7 +135,7 @@
             <td th:text="${mojProfil.numer_telefonu}">Numer telefonu</td>
             <td th:text="${mojProfil.email}">Email</td>
             <td>
-                <form method="post" th:action="@{'/edit/' + ${mojProfil.id_klienta}}">
+                <form method="post" th:action="@{/edit-profile}">
                     <button id="editprofile" class="btn btn-primary" onclick="">Edytuj</button>
                 </form>
             </td>

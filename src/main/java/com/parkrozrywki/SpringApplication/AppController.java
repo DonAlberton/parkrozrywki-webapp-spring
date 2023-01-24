@@ -30,7 +30,8 @@ public class AppController implements WebMvcConfigurer {
 
         registry.addViewController("/klienci").setViewName("admin/klienci");
         registry.addViewController("/new-klient").setViewName("new-klient");
-        registry.addViewController("/edit/{id}").setViewName("user/edit-form");
+        //registry.addViewController("/edit/{id}").setViewName("user/edit-form");
+        registry.addViewController("/edit-profile").setViewName("user/edit-profile");
         registry.addViewController("/zapisz-transakcje/{id}").setViewName("zapisz-transakcje");
 
         registry.addViewController("/wybor-atrakcji").setViewName("user/wybor-atrakcji");
@@ -184,13 +185,14 @@ public class AppController implements WebMvcConfigurer {
         return mav;
     }
 
-    @RequestMapping("/edit/{id}")
-    public ModelAndView editUser(@PathVariable(name="id") int id){
-        ModelAndView mav = new ModelAndView("user/edit-form");
-        Klient klient = dao.get(id);
-        mav.addObject("klient", klient);
 
-        return mav;
+    @RequestMapping("/edit-profile")
+    public String editUser(Model model){
+        String remoteUser = request.getRemoteUser();
+        Klient klient = dao.getProfile(remoteUser);
+        model.addAttribute(klient);
+
+        return "user/edit-profile";
     }
 
     @RequestMapping(value="/update", method=RequestMethod.POST)

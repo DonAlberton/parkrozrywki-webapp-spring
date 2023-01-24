@@ -23,7 +23,7 @@ public class TransakcjeDAO {
     }
 
     /* Import java.util.List */
-    public List<Transakcje> list(String imie){
+    public List<Transakcje> list(String email){
         String sql = "select transakcje.id_klienta, transakcje.id_atrakcji, transakcje.data,atrakcje.nazwa_atrakcji from transakcje inner join atrakcje on transakcje.id_atrakcji = atrakcje.id_atrakcji where transakcje.id_klienta = 15 order by transakcje.data desc";
 
         return jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Transakcje.class));
@@ -34,6 +34,7 @@ public class TransakcjeDAO {
         String sql = "SELECT * FROM transakcje WHERE id_klienta = ?";
         Object[] args = {id};
         Transakcje transakcje = jdbcTemplate.queryForObject(sql, args, BeanPropertyRowMapper.newInstance(Transakcje.class));
+
         return transakcje;
     }
     public void save(Transakcje transakcja) {
