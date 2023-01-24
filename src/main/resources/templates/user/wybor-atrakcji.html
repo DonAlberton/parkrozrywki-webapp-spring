@@ -126,7 +126,7 @@
             <td th:text="${atrakcja.minimalny_wzrost}"></td>
             <td>
                 <form id="dataform" th:action="@{'/zapisz-transakcje/' + ${atrakcja.id_atrakcji}}" th:object="${atrakcja}" method="post">
-                    <button class="btn btn-primary" id="kupbutton" type="submit">Kup bilet</button>
+                    <button class="btn btn-primary" id="kupbutton" type="submit" onclick="purchaseSuccess()">Kup bilet</button>
                 </form>
             </td>
         </tr>
@@ -137,6 +137,7 @@
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>

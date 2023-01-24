@@ -153,7 +153,7 @@
                     <form method="post" th:action="@{'/edit-klient/' + ${klient.id_klienta}}">
                         <button id="editclient" class="btn btn-secondary" onclick="">Edytuj</button>
                     </form><form method="post" th:action="@{'/delete/' + ${klient.id_klienta}}">
-                    <button id="deleteclient" class="btn btn-secondary" onclick="">Usuń</button></form>
+                    <button id="deleteclient" class="btn btn-secondary" onclick="clientDeletionSuccess()">Usuń</button></form>
                 </div>
             </td>
         </tr>
@@ -171,6 +171,7 @@
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>
