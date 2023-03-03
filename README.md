@@ -1,2 +1,2 @@
-# parkrozrywki-webapp-spring
-Projekt CRUD parku rozrywki.
+# parkrozrywki-webapp-spring (DISCONTINUED)
+The DataBase was erased at the end of the semester. 
